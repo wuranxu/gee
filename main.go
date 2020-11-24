@@ -4,14 +4,17 @@ import (
 	"fmt"
 	"gee/gee"
 	"log"
-	"net/http"
 )
 
 func main() {
 	app := gee.New()
-	app.GET("/", func(writer http.ResponseWriter, request *http.Request) {
+	app.GET("/", func(c *gee.Context) {
 		fmt.Println("你好牛逼哦")
-		fmt.Fprintf(writer, "welcome")
+		c.JSON(200, gee.H{
+			"code": 200,
+			"data": "你好",
+			"msg":  "success",
+		})
 	})
 	log.Fatal(app.Run(":9999"))
 }
